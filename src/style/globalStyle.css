@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.main-container {
+  width: 100%;
+  max-width: 1248px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.pulse-circle {
+  fill: #060b28;
+  animation: pulse 1s ease-in-out infinite;
+}
+@keyframes pulse {
+  0% {
+    fill: #060b28;
+  }
+  50% {
+    fill: #0c123193;
+  }
+  100% {
+    fill: #060b28;
+  }
+}
