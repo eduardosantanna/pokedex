@@ -3,6 +3,7 @@
 import StyledComponentsRegistry from '../lib/registry'
 import '../style/swiperConfigStyles.css'
 import '../style/globalStyle.css'
+import '../style/scroolBar.css'
 import 'swiper/css/navigation'
 import 'swiper/css'
 
