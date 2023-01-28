@@ -2,6 +2,7 @@
 
 import { CaroulselElementsFilter } from '@/components/CaroulselElementsFilter/CaroulselElementsFilter'
 import { ContentHead } from '@/components/ContentHead/ContentHead'
+import { ElementTag } from '@/components/ElementTag/ElementTag'
 import { Header } from '@/components/Header/Header'
 import { ModalPokemonDetail } from '@/components/ModalPokemonDetail/ModalPokemonDetail'
 import { PokemonCard } from '@/components/PokemonCard/PokemonCard'
@@ -9,9 +10,11 @@ import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { StartButton } from '@/components/StartButton/StartButton'
 import { StartPageButton } from '@/components/StartPageButton/StartPageButton'
 import { Waves } from '@/components/Waves/Waves'
+import { pokemonTypesInArray } from '@/helpers/pokemonTypesInArray'
 import {
   IPokemonData,
   PokemonService,
+  PokemonType,
 } from '@/services/pokeapi/PokemonService/PokemonService'
 import { useEffect, useRef, useState } from 'react'
 import * as S from './styles'
@@ -23,11 +26,13 @@ export const Home: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [currentPokemon, setCurrentPokemon] = useState({} as IPokemonData)
   const refObserver = useRef<HTMLDivElement>(null)
+  const [currentTypeByFilter, setCurrentTypeByFilter] =
+    useState<PokemonType['type']['name']>()
 
   useEffect(() => {
     if (stopUseEffect) {
       ;(async () => {
-        const result = await new PokemonService().getAllPokemons(9, pag)
+        const result = await new PokemonService().getAllPokemons(9, 1)
         if (result instanceof Error) return console.log(result.message)
         setPokemonAllData((prevState) => [...prevState, ...result])
       })()
@@ -35,13 +40,12 @@ export const Home: React.FC = () => {
       return
     }
     SetStopUseEffect(false)
-  }, [stopUseEffect, pokemonAllData, pag])
+  }, [stopUseEffect])
 
   useEffect(() => {
     const iObserver = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
-        setPag((prevState) => prevState + 1)
-        SetStopUseEffect((prevState) => !prevState)
+        console.log('entrou')
       }
     })
     iObserver.observe(refObserver.current as Element)
@@ -58,7 +62,16 @@ export const Home: React.FC = () => {
       <StartPageButton />
       <S.ContainerHead>
         <Header />
-        <ContentHead />
+        <ContentHead
+          onClickButtonMoreDetails={() => (
+            setCurrentPokemon(
+              pokemonAllData[
+                pokemonAllData.findIndex((el) => el.name === 'charizard')
+              ]
+            ),
+            setIsOpen((prevState) => !prevState)
+          )}
+        />
         <Waves />
       </S.ContainerHead>
       <S.MainContainer>

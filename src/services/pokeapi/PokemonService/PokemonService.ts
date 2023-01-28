@@ -7,7 +7,7 @@ type PokemonStats = {
   }
 }
 
-type PokemonType = {
+export type PokemonType = {
   type: {
     name: 'fire'
     | 'flying'
@@ -58,6 +58,19 @@ interface IPokemonAllData {
   results: TPokemonAllData[]
 }
 
+type TgetPokemonsByTypeData = {
+  pokemon: {
+    name: string
+    url: string
+  }
+}
+
+interface IgetPokemonsByTypeData {
+  data: {
+    pokemon: TgetPokemonsByTypeData[]
+  }
+}
+
 class PokemonService {
   public async getAllPokemons(limit: number = 9, pag: number = 0): Promise<IPokemonData[] | Error> {
     try {
@@ -74,6 +87,24 @@ class PokemonService {
       return allPokemons
     } catch (error) {
       return new Error((error as { message: string }).message || 'Error on find data for all pokemons')
+    }
+  }
+
+  public async getPokemonsByType(pokemonType: PokemonType['type']['name'], pag: number = 1): Promise<Error | IPokemonData[]> {
+    try {
+      const { data } = await ApiPokemon.get(`/type/${pokemonType}`) as IgetPokemonsByTypeData
+      let allPokemonsFilter: IPokemonData[] = []
+
+      for (let i = pag * 9 - 9; i < pag * 9; i++) {
+        if (i === data.pokemon.length) break
+        const result = await this.getPokemonByName(data.pokemon[i].pokemon.name)
+        if (result instanceof Error) return new Error(result.message)
+        allPokemonsFilter.push(result)
+      }
+
+      return allPokemonsFilter
+    } catch (error) {
+      return new Error((error as { message: string }).message || 'Error on find pokemons per type')
     }
   }
 

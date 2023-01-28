@@ -12,6 +12,7 @@ export const ContainerStats = styled.div`
 
   @media (max-width: 1000px) {
     padding-left: 0px;
+    flex: 1;
   }
 `
 
@@ -38,24 +39,48 @@ export const ElementListStatus = styled.li`
 `
 
 export const StatsName = styled.span`
-  flex: .7;
+  flex: 1;
   color: #FFF;
   font-size: 1rem;
   font-weight: 400;
+
+  @media (max-width: 1000px) {
+    flex: 1;
+  }
+
+  @media (max-width: 600px) {
+    flex: .4;
+  }
 `
 
 export const StatsValue = styled.span`
-  flex: .4;
+  flex: .5;
   color: #FFF;
   font-size: 1rem;
   font-weight: 700;
+
+  @media (max-width: 1000px) {
+    flex: .5;
+  }
+
+  @media (max-width: 600px) {
+    flex: .2;
+  }
 `
 
 export const ProgressBarBase = styled.div`
-  flex: 2;
+  flex: 4;
   background-color: #555555;
   height: 8px;
   border-radius: 4px;
+
+  @media (max-width: 1000px) {
+    flex: 6;
+  }
+
+  @media (max-width: 600px) {
+    flex: 1;
+  }
 `
 
 const progressAnimation = (progress: number) => keyframes`

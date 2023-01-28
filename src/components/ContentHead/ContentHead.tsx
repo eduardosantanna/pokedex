@@ -3,7 +3,13 @@ import { ElementTag } from '../ElementTag/ElementTag'
 import { Divider } from './components/Divider/Divider'
 import * as S from './styles'
 
-export const ContentHead: React.FC = () => {
+interface IContentHeadPropsData {
+  onClickButtonMoreDetails: () => void
+}
+
+export const ContentHead: React.FC<IContentHeadPropsData> = ({
+  onClickButtonMoreDetails,
+}) => {
   return (
     <div className="main-container">
       <S.ContainerContent>
@@ -23,7 +29,7 @@ export const ContentHead: React.FC = () => {
             &quot;Mega Charizard X&quot;; No entanto, ele pode aprender ataques
             do tipo Dragão.
           </S.Text>
-          <S.Button>
+          <S.Button onClick={onClickButtonMoreDetails}>
             <Image
               src="/assets/icon-bolt-orange.svg"
               width={25}

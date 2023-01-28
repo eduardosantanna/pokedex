@@ -9,6 +9,7 @@ export const ContainerPokemonCard = styled.div`
 
   @media (max-width: 1000px) {
     align-items: center;
+    flex: 1;
   }
 `
 

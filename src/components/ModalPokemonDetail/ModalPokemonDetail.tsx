@@ -47,6 +47,7 @@ export const ModalPokemonDetail: React.FC<IModalPokemonDetailProps> = ({
             src="/assets/close.svg"
           />
         </S.CloseButton>
+
         <S.DividerModal>
           <Image
             width={56}

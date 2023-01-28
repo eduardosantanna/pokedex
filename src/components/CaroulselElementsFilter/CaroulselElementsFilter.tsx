@@ -1,32 +1,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore from 'swiper'
 import { Navigation } from 'swiper'
-import * as S from './styles'
-import { ElementTag } from '../ElementTag/ElementTag'
 import { useRef } from 'react'
+import * as S from './styles'
+import { pokemonTypesInArray } from '@/helpers/pokemonTypesInArray'
+import { ElementTag } from '../ElementTag/ElementTag'
 
 export const CaroulselElementsFilter: React.FC = () => {
-  const elements = [
-    'fire',
-    'flying',
-    'bug',
-    'dark',
-    'dragon',
-    'electric',
-    'grass',
-    'poison',
-    'water',
-    'fairy',
-    'fighting',
-    'ghost',
-    'ground',
-    'ice',
-    'normal',
-    'psychic',
-    'rock',
-    'steel',
-  ]
-
   const swiperRef = useRef<SwiperCore>()
 
   return (
@@ -44,9 +24,9 @@ export const CaroulselElementsFilter: React.FC = () => {
             swiperRef.current = swiper
           }}
         >
-          {elements.map((element) => (
-            <SwiperSlide key={element}>
-              <ElementTag cursorPointer typeElement={element as 'fire'} />
+          {pokemonTypesInArray.map((type) => (
+            <SwiperSlide key={type}>
+              <ElementTag typeElement={type} cursorPointer />
             </SwiperSlide>
           ))}
         </Swiper>

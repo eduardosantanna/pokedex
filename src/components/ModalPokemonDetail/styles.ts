@@ -79,6 +79,7 @@ export const ContainerContentModal = styled.div`
     width: 100%;
     height: 734px;
     padding: 40px 26px;
+    gap: 150px;
   }
 `
 
@@ -130,27 +131,45 @@ export const BluerEffect = styled.div<IElementTypes>`
 
 export const DividerModal = styled.div`
   position: absolute;
-  top: 50%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   left: 334px;
-  transform: translateY(-50%);
-
-  &::after {
-    position: absolute;
-    content: '';
-    width: 1px;
-    height: 124px;
-    background-color: rgba(255, 255, 255, 0.25);
-    top: -146px;
-    left: 50%;
-  }
+  gap: 24px;
 
   &::before {
-    position: absolute;
     content: '';
     width: 1px;
-    height: 124px;
+    flex-grow: 1;
     background-color: rgba(255, 255, 255, 0.25);
-    bottom: -146px;
-    left: 50%;
+    display: block;
+  }
+
+  &::after {
+    content: '';
+    width: 1px;
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.25);
+    display: block;
+  }
+
+  @media (max-width: 1000px) {
+    height: max-content;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: row;
+
+    &::before {
+      height: 1px;
+    }
+
+    &::after {
+      height: 1px;
+    }
   }
 `
