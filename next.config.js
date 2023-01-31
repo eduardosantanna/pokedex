@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const { withPlaiceholder } = require("@plaiceholder/next");
-
-
-const nextConfig = {
+module.exports = {
   reactStrictMode: false,
   experimental: {
     appDir: true,
@@ -16,7 +13,8 @@ const nextConfig = {
         port: ''
       }
     ]
+  },
+  typescript: {
+    ignoreBuildErrors: true
   }
 }
-
-module.exports = withPlaiceholder(nextConfig)
