@@ -1,10 +1,14 @@
 import Image from 'next/image'
 import * as S from './styles'
 
-export const StartButton: React.FC = () => {
+interface IStartButtonProps {
+  onClick?: () => void
+}
+
+export const StartButton: React.FC<IStartButtonProps> = ({ onClick }) => {
   return (
     <S.ButtonStartContainer>
-      <S.Button>
+      <S.Button onClick={onClick}>
         <Image
           src="/assets/icon-home.svg"
           width={20}

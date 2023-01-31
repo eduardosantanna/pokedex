@@ -4,9 +4,16 @@ import styled from 'styled-components'
 
 export const Divider = styled.div`
   width: 100%;
-  background-color: #24293F;
-  height: 1px;
-  margin: 35px 0px;
+  background-color: #060b28;
+  padding: 35px 0px;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #24293F;
+  }
 `
 
 export const ContainerHead = styled.div`
@@ -57,7 +64,7 @@ export const MainContainer = styled.div`
   width: 100%;
   background-color: #060b28;
   padding-top: 60px;
-  padding-bottom: 100px;
+  padding-bottom: 0px;
 `
 
 export const SearchAndFilterContainer = styled.div`

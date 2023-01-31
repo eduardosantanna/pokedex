@@ -6,7 +6,13 @@ import * as S from './styles'
 import { pokemonTypesInArray } from '@/helpers/pokemonTypesInArray'
 import { ElementTag } from '../ElementTag/ElementTag'
 
-export const CaroulselElementsFilter: React.FC = () => {
+interface ICaroulselElementsFilterProps {
+  children: React.ReactNode
+}
+
+export const CaroulselElementsFilter: React.FC<
+  ICaroulselElementsFilterProps
+> = ({ children }) => {
   const swiperRef = useRef<SwiperCore>()
 
   return (
@@ -24,11 +30,7 @@ export const CaroulselElementsFilter: React.FC = () => {
             swiperRef.current = swiper
           }}
         >
-          {pokemonTypesInArray.map((type) => (
-            <SwiperSlide key={type}>
-              <ElementTag typeElement={type} cursorPointer />
-            </SwiperSlide>
-          ))}
+          {children}
         </Swiper>
         <S.ButtonNext onClick={() => swiperRef.current?.slideNext()}>
           N

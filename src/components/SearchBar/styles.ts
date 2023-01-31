@@ -11,7 +11,7 @@ export const MainContainerSearchBar = styled.div`
   }
 `
 
-export const ContainerSearchAndButton = styled.div`
+export const ContainerSearchAndButton = styled.form`
   width: 100%;
   display: flex;
   justify-content: center;

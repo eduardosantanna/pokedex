@@ -79,6 +79,12 @@ export const PokemonTitle = styled.p`
   font-size: 2rem;
   font-weight: 700;
   z-index: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  padding: 0px 15px;
 `
 
 export const ContainerPokemonTypes = styled.div`

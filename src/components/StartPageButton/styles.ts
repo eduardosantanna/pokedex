@@ -4,7 +4,7 @@ export const ContainerButton = styled.div`
   height: max-content;
   width: max-content;
   position: fixed;
-  bottom: 20px;
+  bottom: 93px;
   right: 20px;
   z-index: 5;
 `

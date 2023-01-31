@@ -17,39 +17,81 @@ import {
   PokemonType,
 } from '@/services/pokeapi/PokemonService/PokemonService'
 import { useEffect, useRef, useState } from 'react'
+import { SwiperSlide } from 'swiper/react'
 import * as S from './styles'
+import { PokeballLoading } from '@/components/PokeballLoading/PokeballLoading'
+import { PokemonFindError } from '@/components/PokemonFindError/PokemonFindError'
+import { Footer } from '@/components/Footer/Footer'
 
 export const Home: React.FC = () => {
   const [pokemonAllData, setPokemonAllData] = useState<IPokemonData[]>([])
-  const [stopUseEffect, SetStopUseEffect] = useState(true)
+  const [pokemonAllDataFilterType, setPokemonAllDataFilterType] = useState<
+    IPokemonData[]
+  >([])
+  const [pokemonFindUnique, setPokemonFindUnique] = useState<IPokemonData[]>()
+  const [stopObserver, setStopObserver] = useState(false)
   const [pag, setPag] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [currentPokemon, setCurrentPokemon] = useState({} as IPokemonData)
+  const [inputSearchPokemon, setInputSearchPokemon] = useState('')
   const refObserver = useRef<HTMLDivElement>(null)
   const [currentTypeByFilter, setCurrentTypeByFilter] =
     useState<PokemonType['type']['name']>()
 
   useEffect(() => {
-    if (stopUseEffect) {
-      ;(async () => {
-        const result = await new PokemonService().getAllPokemons(9, 1)
-        if (result instanceof Error) return console.log(result.message)
-        setPokemonAllData((prevState) => [...prevState, ...result])
-      })()
-    } else {
-      return
+    if (!stopObserver) {
+      setIsLoading(true)
+      if (currentTypeByFilter) {
+        new PokemonService()
+          .getPokemonsByType(currentTypeByFilter, pag)
+          .then((result) => {
+            console.log(pag)
+            setIsLoading(false)
+            if (result instanceof Error) return console.log(result.message)
+            if (result.length < 9) return setStopObserver(true)
+            setPokemonAllDataFilterType((oldState) => [...oldState, ...result])
+          })
+      } else if (currentTypeByFilter === undefined) {
+        new PokemonService().getAllPokemons(9, pag).then((result) => {
+          setIsLoading(false)
+          if (result instanceof Error) return console.log(result.message)
+          setPokemonAllData((oldState) => [...oldState, ...result])
+        })
+      }
     }
-    SetStopUseEffect(false)
-  }, [stopUseEffect])
+  }, [currentTypeByFilter, pag, stopObserver])
 
   useEffect(() => {
     const iObserver = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
-        console.log('entrou')
+        if (!stopObserver) {
+          setPag((oldState) => oldState + 1)
+        }
       }
     })
     iObserver.observe(refObserver.current as Element)
-  }, [])
+  }, [stopObserver])
+
+  const findPokemon = async () => {
+    setPokemonFindUnique((oldState) => [])
+    setIsLoading(true)
+    if (inputSearchPokemon.length <= 0) return
+
+    const resultPokemon = await new PokemonService().getPokemonByName(
+      inputSearchPokemon.toLowerCase()
+    )
+    if (resultPokemon instanceof Error) {
+      setInputSearchPokemon('')
+      setIsLoading(false)
+      setStopObserver(true)
+      return setPokemonFindUnique((oldState) => [])
+    }
+    setIsLoading(false)
+    setPokemonFindUnique((oldState) => [resultPokemon])
+    setInputSearchPokemon('')
+    setStopObserver(true)
+  }
 
   return (
     <>
@@ -77,28 +119,94 @@ export const Home: React.FC = () => {
       <S.MainContainer>
         <S.SearchAndFilterContainer>
           <S.ContainerStartAndFilterTypes>
-            <StartButton />
-            <CaroulselElementsFilter />
+            <StartButton
+              onClick={() => (
+                setCurrentTypeByFilter(undefined),
+                setPag((oldState) => 1),
+                setPokemonAllDataFilterType([]),
+                setPokemonAllData([]),
+                setStopObserver(false),
+                setPokemonFindUnique(undefined)
+              )}
+            />
+            <CaroulselElementsFilter>
+              {pokemonTypesInArray.map((type) => (
+                <SwiperSlide key={type}>
+                  <ElementTag
+                    typeElement={type}
+                    cursorPointer
+                    onClick={() => (
+                      setCurrentTypeByFilter(type),
+                      setPokemonAllDataFilterType((oldState) => []),
+                      setStopObserver(false),
+                      setPag((oldState) => 1)
+                    )}
+                  />
+                </SwiperSlide>
+              ))}
+            </CaroulselElementsFilter>
           </S.ContainerStartAndFilterTypes>
-          <SearchBar />
+          <SearchBar
+            inputValue={inputSearchPokemon}
+            onKeyEnter={findPokemon}
+            onClick={findPokemon}
+            onChange={(value) => setInputSearchPokemon(value)}
+          />
         </S.SearchAndFilterContainer>
         <div className="main-container">
           <S.Divider />
         </div>
         <S.ContainerListPokemon>
-          {pokemonAllData.map((pokemonData) => (
-            <PokemonCard
-              onClick={() => (
-                setCurrentPokemon(pokemonData),
-                setIsOpen((prevState) => !prevState)
-              )}
-              key={pokemonData.id}
-              pokemonData={pokemonData}
-            />
-          ))}
+          {pokemonFindUnique?.length === 0 && !isLoading ? (
+            <PokemonFindError />
+          ) : (
+            <></>
+          )}
+          {pokemonFindUnique &&
+            pokemonFindUnique.map((pokemonData) => (
+              <PokemonCard
+                key={pokemonData.name}
+                pokemonData={pokemonData}
+                onClick={() => (
+                  setCurrentPokemon(pokemonData),
+                  setIsOpen((prevState) => !prevState)
+                )}
+              />
+            ))}
+
+          {!currentTypeByFilter &&
+            !pokemonFindUnique &&
+            pokemonAllData.map((pokemonData) => (
+              <PokemonCard
+                onClick={() => (
+                  setCurrentPokemon(pokemonData),
+                  setIsOpen((prevState) => !prevState)
+                )}
+                key={pokemonData.name}
+                pokemonData={pokemonData}
+              />
+            ))}
+
+          {currentTypeByFilter &&
+            !pokemonFindUnique &&
+            pokemonAllDataFilterType.map((pokemonData) => (
+              <PokemonCard
+                onClick={() => (
+                  setCurrentPokemon(pokemonData),
+                  setIsOpen((prevState) => !prevState)
+                )}
+                key={pokemonData.name}
+                pokemonData={pokemonData}
+              />
+            ))}
+          {isLoading && <PokeballLoading />}
         </S.ContainerListPokemon>
         <div ref={refObserver}></div>
+        <div className="main-container">
+          <S.Divider />
+        </div>
       </S.MainContainer>
+      <Footer />
     </>
   )
 }

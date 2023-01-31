@@ -18,7 +18,10 @@ export const PokemonCard: React.FC<IPokemonCardPropsData> = ({
       <S.BackGroundBlur typeElement={pokemonData.types[0].type.name} />
       <S.ContainerImage>
         <Image
-          src={pokemonData.sprites.other.home.front_default}
+          src={
+            pokemonData.sprites.other.home.front_default ||
+            '/assets/pokemon-image-skeleton.svg'
+          }
           width={256}
           height={256}
           alt="pokemon image"
