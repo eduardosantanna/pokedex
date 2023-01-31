@@ -139,7 +139,8 @@ export const Home: React.FC = () => {
                       setCurrentTypeByFilter(type),
                       setPokemonAllDataFilterType((oldState) => []),
                       setStopObserver(false),
-                      setPag((oldState) => 1)
+                      setPag((oldState) => 1),
+                      setPokemonFindUnique(undefined)
                     )}
                   />
                 </SwiperSlide>
