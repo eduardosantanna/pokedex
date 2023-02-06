@@ -6,9 +6,9 @@ Nesse projeto coloquei em prática conhecimentos referente ao framework Next.j
 
 # Screenshots
 
-<img src="/screenshots/desktop-version.png" alt="Desktop image preview" style="height: 500px; width:600px;"/>
+![](./screenshots/desktop-version.png "Desktop image preview")
 
-<img src="/screenshots/mobile-version.png" alt="Mobile image preview" style="height: 1000px; width:300px;"/>
+![](./screenshots/mobile-version.png "Mobile image preview")
 
 [Clique aqui para acessar o projeto](https://pokedex-nine-psi-34.vercel.app)
 
