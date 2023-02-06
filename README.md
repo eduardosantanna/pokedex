@@ -1,4 +1,4 @@
-<h1 align="center">ToDo List</h1>
+<h1 align="center">Pokédex</h1>
 
 # Descrição
 
