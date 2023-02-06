@@ -1,38 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">ToDo List</h1>
 
-## Getting Started
+# Descrição
 
-First, run the development server:
+Nesse projeto coloquei em prática conhecimentos referente ao framework Next.js e seu ecossistema de desenvolvimento.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# Screenshots
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img src="/screenshots/desktop-version.png" alt="Desktop image preview" style="height: 200px; width:333px;"/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<img src="/screenshots/mobile-version.png" alt="Mobile image preview" style="height: 500px; width:250px;"/>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[Clique aqui para acessar o projeto](https://pokedex-nine-psi-34.vercel.app)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Listagem de pokémons com skroll infinito.
+- Listagem de pokémons por tipo.
+- Visualização de um único pokémon através de uma Modal.
 
-## Learn More
+# Tecnologias utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org)
+- [Styled-Components](https://styled-components.com/)
+- [Swiper.js](https://swiperjs.com)
+- [Axios](https://axios-http.com)
+- [API - PokeApi.co](https://pokeapi.co)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Créditos do projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Referente ao layout do projeto, foi utilizado um já pronto desenvolvido por [carlosdancr](https://github.com/carlosdancr). Meus agradecimentos ao mesmo por disponibilizar o layout de forma gratuita.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Link do projeto no Figma](https://www.figma.com/file/MoGoQgI1dNLClQEZxk9v2A/Pok%C3%A9dex?node-id=0%3A1&t=lKyX4ik3JdWpyTVV-0)
