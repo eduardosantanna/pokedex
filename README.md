@@ -17,6 +17,7 @@ Nesse projeto coloquei em prática conhecimentos referente ao framework Next.j
 - Listagem de pokémons com skroll infinito.
 - Listagem de pokémons por tipo.
 - Visualização de um único pokémon através de uma Modal.
+- Pesquisa por nome do pokémon
 
 # Tecnologias utilizadas
 
